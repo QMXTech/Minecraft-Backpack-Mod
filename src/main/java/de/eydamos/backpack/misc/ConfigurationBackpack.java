@@ -5,23 +5,27 @@ import java.io.File;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigurationBackpack {
+    public static final String COMMENT_BORDER = "########################################\n";
+
     public static Configuration config;
 
-    public static int ENDER_RECIPE;
-    public static int BACKPACK_SLOTS_S;
-    public static int BACKPACK_SLOTS_L;
+    public static boolean USE_ENDER_EYE;
     public static int MAX_BACKPACK_AMOUNT;
     public static boolean RENDER_BACKPACK_MODEL;
-    public static boolean OPEN_ONLY_PERSONAL_BACKPACK;
+    public static boolean OPEN_ONLY_WORN_BACKPACK;
     public static boolean AIRSHIP_MOD_COMPATIBILITY;
-    public static boolean DISABLE_BACKPACKS;
-    public static boolean DISABLE_BIG_BACKPACKS;
-    public static boolean DISABLE_ENDER_BACKPACKS;
-    public static boolean DISABLE_WORKBENCH_BACKPACKS;
-    public static boolean BIG_BY_UPGRADE_ONLY;
+    public static boolean DISABLE_BACKPACKS_S;
+    public static boolean DISABLE_BACKPACKS_M;
+    public static boolean DISABLE_BACKPACKS_L;
+    public static boolean DISABLE_BACKPACKS_WB_S;
+    public static boolean DISABLE_BACKPACKS_WB_M;
+    public static boolean DISABLE_BACKPACKS_WB_L;
+    public static boolean DISABLE_BACKPACKS_E;
     public static String DISALLOW_ITEMS;
+    public static String GUI_TEXT_COLOR;
 
     public static boolean NEISupport = false;
+    public static int GUITextColor;
 
     public static void init(File configFile) {
         if(config == null) {
@@ -31,83 +35,69 @@ public class ConfigurationBackpack {
     }
 
     public static void loadConfiguration() {
-        ENDER_RECIPE = config.get(Configuration.CATEGORY_GENERAL, "enderRecipe", 0, getEnderRecipeComment()).getInt();
-        if(ENDER_RECIPE < 0 || ENDER_RECIPE > 1) {
-            ENDER_RECIPE = 0;
-        }
-        BACKPACK_SLOTS_S = config.get(Configuration.CATEGORY_GENERAL, "backpackSlotsS", 27, getBackpackSlotComment()).getInt();
-        if(BACKPACK_SLOTS_S < 1 || BACKPACK_SLOTS_S > 128) {
-            BACKPACK_SLOTS_S = 27;
-        }
-        BACKPACK_SLOTS_L = config.get(Configuration.CATEGORY_GENERAL, "backpackSlotsL", 54, getBackpackSlotComment()).getInt();
-        if(BACKPACK_SLOTS_L < 1 || BACKPACK_SLOTS_L > 128) {
-            BACKPACK_SLOTS_L = 54;
-        }
+        int value;
+
+        USE_ENDER_EYE = config.get(Configuration.CATEGORY_GENERAL, "useEnderEye", false, getUseEnderEyeComment()).getBoolean(false);
         MAX_BACKPACK_AMOUNT = config.get(Configuration.CATEGORY_GENERAL, "maxBackpackAmount", 0, getMaxBackpackAmountComment()).getInt();
-        if(MAX_BACKPACK_AMOUNT < 0 || MAX_BACKPACK_AMOUNT > 36) {
+
+        if((MAX_BACKPACK_AMOUNT < 0) || (MAX_BACKPACK_AMOUNT > 36)) {
             MAX_BACKPACK_AMOUNT = 0;
         }
-        RENDER_BACKPACK_MODEL = config.get(Configuration.CATEGORY_GENERAL, "renderBackpackModel", true, getRenderBackpackModelComment()).getBoolean(true);
-        OPEN_ONLY_PERSONAL_BACKPACK = config.get(Configuration.CATEGORY_GENERAL, "openOnlyWornBackpacks", false, getOpenOnlyPersonalBackpacksComment()).getBoolean(false);
-        AIRSHIP_MOD_COMPATIBILITY = config.get(Configuration.CATEGORY_GENERAL, "airshipModCompatibility", false, getAirshipModCompatibilityComment()).getBoolean(false);
-        DISABLE_BACKPACKS = config.get(Configuration.CATEGORY_GENERAL, "disableBackpacks", false, getDisableBackpacksComment()).getBoolean(false);
-        DISABLE_BIG_BACKPACKS = config.get(Configuration.CATEGORY_GENERAL, "disableBigBackpacks", false, getDisableBigBackpacksComment()).getBoolean(false);
-        DISABLE_ENDER_BACKPACKS = config.get(Configuration.CATEGORY_GENERAL, "disableEnderBackpack", false, getDisableEnderBackpacksComment()).getBoolean(false);
-        DISABLE_WORKBENCH_BACKPACKS = config.get(Configuration.CATEGORY_GENERAL, "disableWorkbenchBackpack", false, getDisableWorkbenchBackpacksComment()).getBoolean(false);
-        BIG_BY_UPGRADE_ONLY = config.get(Configuration.CATEGORY_GENERAL, "bigByUpgradeOnly", false, getBigByUpgradeOnlyComment()).getBoolean(false);
 
+        RENDER_BACKPACK_MODEL = config.get(Configuration.CATEGORY_GENERAL, "renderBackpackModel", true, getRenderBackpackModelComment()).getBoolean(true);
+        OPEN_ONLY_WORN_BACKPACK = config.get(Configuration.CATEGORY_GENERAL, "openOnlyWornBackpacks", false, getOpenOnlyWornBackpacksComment()).getBoolean(false);
+        AIRSHIP_MOD_COMPATIBILITY = config.get(Configuration.CATEGORY_GENERAL, "airshipModCompatibility", false, getAirshipModCompatibilityComment()).getBoolean(false);
+        DISABLE_BACKPACKS_S = config.get(Configuration.CATEGORY_GENERAL, "disableBackpacksS", false, getDisableBackpacksComment("small")).getBoolean(false);
+        DISABLE_BACKPACKS_M = config.get(Configuration.CATEGORY_GENERAL, "disableBackpacksM", false, getDisableBackpacksComment("medium")).getBoolean(false);
+        DISABLE_BACKPACKS_L = config.get(Configuration.CATEGORY_GENERAL, "disableBackpacksL", false, getDisableBackpacksComment("large")).getBoolean(false);
+        DISABLE_BACKPACKS_WB_S = config.get(Configuration.CATEGORY_GENERAL, "disableBackpacksWorkbenchS", false, getDisableBackpacksComment("small workbench")).getBoolean(false);
+        DISABLE_BACKPACKS_WB_M = config.get(Configuration.CATEGORY_GENERAL, "disableBackpacksWorkbenchM", false, getDisableBackpacksComment("medium workbench")).getBoolean(false);
+        DISABLE_BACKPACKS_WB_L = config.get(Configuration.CATEGORY_GENERAL, "disableBackpacksWorkbenchL", false, getDisableBackpacksComment("large workbench")).getBoolean(false);
+        DISABLE_BACKPACKS_E = config.get(Configuration.CATEGORY_GENERAL, "disableBackpacksEnder", false, getDisableBackpacksComment("ender")).getBoolean(false);
         DISALLOW_ITEMS = config.get(Configuration.CATEGORY_GENERAL, "disallowItems", "", getDisallowItemsComment()).getString();
+        GUI_TEXT_COLOR = config.get(Configuration.CATEGORY_GENERAL, "guiTextColor", "0x000000", getGuiTextColorComment()).getString();
+        GUITextColor = Integer.decode( GUI_TEXT_COLOR );
+
+        if((GUITextColor < 0x000000) || (GUITextColor > 0xFFFFFF)) {
+            GUI_TEXT_COLOR = "0x000000";
+            GUITextColor = 0x000000;
+        }
 
         if(config.hasChanged()) {
             config.save();
         }
     }
 
-    private static String getEnderRecipeComment() {
-        return "##############\n" + "Recipe to craft ender backpack\n" + "0 ender chest\n" + "1 eye of the ender\n" + "##############";
-    }
-
-    private static String getBackpackSlotComment() {
-        return "##############\n" + "Number of slots a backpack has\n" + "valid: integers 1-128\n" + "##############";
+    private static String getUseEnderEyeComment() {
+        return (COMMENT_BORDER + "If true, ender backpacks will require an ender eye instead of ender chest.\n" + COMMENT_BORDER);
     }
 
     private static String getMaxBackpackAmountComment() {
-        return "##############\n" + "Number of backpacks a player can have in his inventory\n" + "valid: integers 0-36\n" + "0 = unlimited\n" + "##############";
+        return (COMMENT_BORDER + "Number of backpacks players can have in their inventory.\n" + "valid: integers 0-36\n" + "0 = unlimited\n" + COMMENT_BORDER);
     }
 
     private static String getRenderBackpackModelComment() {
-        return "##############\n" + "If true the backpack 3D model will be rendered.\n" + "##############";
+        return (COMMENT_BORDER + "If true, the backpack 3D model will be rendered.\n" + COMMENT_BORDER);
     }
 
-    private static String getOpenOnlyPersonalBackpacksComment() {
-        return "##############\n" + "If true you can only open a backpack that you wear in the extra slot\n" + "##############";
+    private static String getOpenOnlyWornBackpacksComment() {
+        return (COMMENT_BORDER + "If true, you can only open a backpack being worn in the backpack slot.\n" + COMMENT_BORDER);
     }
 
     private static String getAirshipModCompatibilityComment() {
-        return "##############\n" + "If true normal backpack requires a chest in the middle\n" + "##############";
+        return (COMMENT_BORDER + "If true, the small backpack recipe requires a chest in the middle.\n" + COMMENT_BORDER);
     }
 
-    private static String getDisableBackpacksComment() {
-        return "##############\n" + "If true small backpacks are not craftable\n" + "##############";
-    }
-
-    private static String getDisableBigBackpacksComment() {
-        return "##############\n" + "If true big backpacks are not craftable\n" + "##############";
-    }
-
-    private static String getDisableEnderBackpacksComment() {
-        return "##############\n" + "If true ender backpacks are not craftable\n" + "##############";
-    }
-
-    private static String getDisableWorkbenchBackpacksComment() {
-        return "##############\n" + "If true workbench backpacks are not craftable\n" + "##############";
-    }
-
-    private static String getBigByUpgradeOnlyComment() {
-        return "##############\n" + "If true big backpacks can only crafted by upgrading a small one\n" + "##############";
+    private static String getDisableBackpacksComment(String tier) {
+        return (COMMENT_BORDER + "If true, " + tier + " backpacks are not craftable.\n" + COMMENT_BORDER);
     }
 
     private static String getDisallowItemsComment() {
-        return "##############\n" + "Example:\n" + "disallowItems:1,5:2,ingotSilver\n\n" + "This will disallow stone, birch wood planks and any type of silver ingots in backpacks.\n" + "##############";
+        return (COMMENT_BORDER + "Example:\n" + "disallowItems:1,5:2,ingotSilver\n\n" + "This will disallow stone, birch wood planks, and any type of silver ingots in backpacks.\n" + COMMENT_BORDER);
+    }
+
+    private static String getGuiTextColorComment() {
+        return (COMMENT_BORDER + "Text color used in the various GUI windows.\n" + "Valid: String ('0xRRGGBB')\n" + COMMENT_BORDER);
     }
 }
+

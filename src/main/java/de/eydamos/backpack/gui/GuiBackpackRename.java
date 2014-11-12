@@ -7,6 +7,7 @@ import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.client.FMLClientHandler;
 import de.eydamos.backpack.helper.GuiHelper;
+import de.eydamos.backpack.misc.ConfigurationBackpack;
 import de.eydamos.backpack.misc.Localizations;
 import de.eydamos.guiadvanced.Window;
 import de.eydamos.guiadvanced.form.Button;
@@ -39,10 +40,10 @@ public class GuiBackpackRename extends Window {
 
         // create "Rename your Backpack" label at the top in the middle
         int posX = xSize / 2 - fontRendererObj.getStringWidth(TITLE) / 2;
-        addSubPart(new Label(posX, 10, 0x000000, TITLE));
+        addSubPart(new Label(posX, 10, ConfigurationBackpack.GUITextColor, TITLE));
 
-        // create "New name:" label at the left site above the GuiTextField
-        addSubPart(new Label(20, 30, 0x404040, NEW_NAME));
+        // create "New Name:" label at the left site above the GuiTextField
+        addSubPart(new Label(20, 30, ConfigurationBackpack.GUITextColor, NEW_NAME));
 
         // create text field
         txt_backpackName = new Textbox(fontRendererObj, 20, 40, 200, 20);

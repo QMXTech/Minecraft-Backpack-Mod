@@ -16,6 +16,7 @@ import de.eydamos.backpack.inventory.container.ContainerWorkbenchBackpack;
 import de.eydamos.backpack.inventory.slot.SlotBackpack;
 import de.eydamos.backpack.inventory.slot.SlotCraftingAdvanced;
 import de.eydamos.backpack.inventory.slot.SlotPhantom;
+import de.eydamos.backpack.misc.ConfigurationBackpack;
 import de.eydamos.backpack.saves.BackpackSave;
 import de.eydamos.guiadvanced.form.Button;
 import de.eydamos.guiadvanced.form.Label;
@@ -199,10 +200,11 @@ public class FactoryWorkbenchBackpack extends AbstractFactory<BackpackSave> {
         int inventoryRows = (int) Math.ceil(inventories[1].getSizeInventory() / (float) slotsPerRow);
         int textPositionY2 = textPositionY + inventoryRows * SLOT + 3 * SLOT + 19;
 
-        guiBackpack.addSubPart(new Label(textPositionX, textPositionY, 0x404040, "container.crafting", alignment));
-        guiBackpack.addSubPart(new Label(X_SPACING, textPositionY2, 0x404040, "container.inventory"));
+        guiBackpack.addSubPart(new Label(textPositionX, textPositionY, ConfigurationBackpack.GUITextColor, "container.crafting", alignment));
+        guiBackpack.addSubPart(new Label(X_SPACING, textPositionY2, ConfigurationBackpack.GUITextColor, "container.inventory"));
 
         return guiBackpack;
     }
 
 }
+

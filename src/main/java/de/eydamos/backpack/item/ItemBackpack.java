@@ -29,12 +29,10 @@ public class ItemBackpack extends ItemBackpackBase {
 
         String name;
         for(int tier = 0; tier < 3; tier++) {
-            // TODO remove when tier 1 added
-            if(tier == 1) continue;
             for(int meta = 0; meta < 17; meta++) {
                 name = "backpack:backpack";
+                name += '_' + ItemsBackpack.BACKPACK_TIERS[tier];
                 name += (meta == 0 ? "" : '_') + ItemsBackpack.BACKPACK_COLORS[meta];
-                name += (tier == 0 ? "" : '_') + ItemsBackpack.BACKPACK_TIERS[tier];
                 icons[tier * 17 + meta] = iconRegister.registerIcon(name);
             }
         }
@@ -59,3 +57,4 @@ public class ItemBackpack extends ItemBackpackBase {
         return icons[tier * 17 + meta];
     }
 }
+

@@ -81,7 +81,7 @@ public class Button extends GuiButton implements AbstractGuiPart {
 
             // borders top/bottom
             rectangle.setWidth(width - 4);
-            rectangle.setBackgroundRepeat(BackgroundRepeat.REPEAT_X);
+            rectangle.setBackgroundRepeat(BackgroundRepeat.NONE);
             // draw top border
             rectangle.setBackgroundPosition(2, 46 + offset * 20);
             rectangle.draw(xPosition + 2, yPosition);
@@ -92,7 +92,7 @@ public class Button extends GuiButton implements AbstractGuiPart {
             // borders left/right
             rectangle.setWidth(2);
             rectangle.setHeight(height - 4);
-            rectangle.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
+            rectangle.setBackgroundRepeat(BackgroundRepeat.NONE);
             // draw left border
             rectangle.setBackgroundPosition(0, 48 + offset * 20);
             rectangle.draw(xPosition, yPosition + 2);
@@ -104,7 +104,7 @@ public class Button extends GuiButton implements AbstractGuiPart {
             rectangle.setWidth(width - 4);
             rectangle.setHeight(height - 4);
             rectangle.setBackgroundSize(18, 18);
-            rectangle.setBackgroundRepeat(BackgroundRepeat.REPEAT);
+            rectangle.setBackgroundRepeat(BackgroundRepeat.NONE);
             rectangle.setBackgroundPosition(2, 48 + offset * 20);
             rectangle.draw(xPosition + 2, yPosition + 2);
 

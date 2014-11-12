@@ -1,5 +1,7 @@
 package de.eydamos.guiadvanced.util;
 
+import de.eydamos.backpack.misc.ConfigurationBackpack;
+
 public class RenderHelper {
     public enum BackgroundRepeat {
         NONE, REPEAT, REPEAT_X, REPEAT_Y, STRETCH
@@ -36,14 +38,6 @@ public class RenderHelper {
         borderTop.draw(posX, posY);
     }
 
-    public static void drawBorderRight(int posX, int posY, int width, int height) {
-        Rectangle borderRight = new Rectangle(width, height);
-        borderRight.setBackgroundPosition(172, 4);
-        borderRight.setBackgroundSize(4, 100);
-        borderRight.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
-        borderRight.draw(posX, posY);
-    }
-
     public static void drawBorderBottom(int posX, int posY, int width, int height) {
         Rectangle borderBottom = new Rectangle(width, height);
         borderBottom.setBackgroundPosition(4, 163);
@@ -60,6 +54,14 @@ public class RenderHelper {
         borderLeft.draw(posX, posY);
     }
 
+    public static void drawBorderRight(int posX, int posY, int width, int height) {
+        Rectangle borderRight = new Rectangle(width, height);
+        borderRight.setBackgroundPosition(172, 4);
+        borderRight.setBackgroundSize(4, 100);
+        borderRight.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
+        borderRight.draw(posX, posY);
+    }
+
     public static void drawBackground(int posX, int posY, int width, int height) {
         Rectangle borderBottom = new Rectangle(width, height);
         borderBottom.setBackgroundPosition(4, 4);
@@ -68,3 +70,4 @@ public class RenderHelper {
         borderBottom.draw(posX, posY);
     }
 }
+

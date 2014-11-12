@@ -21,6 +21,7 @@ public class BackpackSave extends AbstractSave {
 
     public BackpackSave(NBTTagCompound data) {
         super(data);
+
         if(NBTUtil.hasTag(nbtTagCompound, Constants.NBT.UID)) {
             UID = NBTUtil.getString(nbtTagCompound, Constants.NBT.UID);
         }
@@ -32,6 +33,7 @@ public class BackpackSave extends AbstractSave {
 
     public BackpackSave(ItemStack backpack, boolean force) {
         super(new NBTTagCompound());
+
         if(!NBTItemStackUtil.hasTag(backpack, Constants.NBT.UID)) {
             initialize(backpack);
         } else {
@@ -60,24 +62,35 @@ public class BackpackSave extends AbstractSave {
             int damage = backpack.getItemDamage();
             int tier = damage / 100 < 3 ? damage / 100 : 0;
             int meta = damage % 100;
-            // TODO change BackpackUtil.getSize(tier, color) [multidimensional array build from config]
-            if(meta == 99) { // ender
-                size = 27;
-            } else if(meta < 17 && tier == 2) { // big
-                size = ConfigurationBackpack.BACKPACK_SLOTS_L;
-            } else if(meta < 17 && tier == 0) { // normal
-                size = ConfigurationBackpack.BACKPACK_SLOTS_S;
-            } else if(meta == 17 && tier == 0) { // workbench
-                size = 9;
-            } else if(meta == 17 && tier == 2) { // big workbench
+
+            if((meta < 17) && (tier == 0)) {
+                // small standard
                 size = 18;
+            } else if((meta < 17) && (tier == 1)) {
+                // medium standard
+                size = 36;
+            } else if((meta < 17) && (tier == 2)) {
+                // large standard
+                size = 54;
+            } else if((meta == 17) && (tier == 0)) {
+                // small workbench
+                size = 9;
+            } else if((meta == 17) && (tier == 1)) {
+                // medium workbench
+                size = 18;
+            } else if((meta == 17) && (tier == 2)) {
+                // large workbench
+                size = 27;
+            } else if(meta == 99) {
+                // ender
+                size = 27;
             }
 
             setManualSaving();
-
             setSlotsPerRow(9);
             setSize(size);
             setType(BackpackUtil.getType(backpack));
+
             if(!NBTUtil.hasTag(nbtTagCompound, Constants.NBT.INVENTORIES)) {
                 NBTUtil.setCompoundTag(nbtTagCompound, Constants.NBT.INVENTORIES, new NBTTagCompound());
             }
@@ -179,3 +192,4 @@ public class BackpackSave extends AbstractSave {
         }
     }
 }
+

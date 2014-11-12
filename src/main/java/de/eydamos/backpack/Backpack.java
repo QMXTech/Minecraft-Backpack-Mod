@@ -20,6 +20,11 @@ import de.eydamos.backpack.network.PacketHandlerBackpack;
 import de.eydamos.backpack.proxy.CommonProxy;
 import de.eydamos.backpack.recipes.RecipeHelper;
 
+// TODO: Fix bug with 'disallowItems' filter.
+// TODO: Fix bug causing backpacks to drop when being picked up from hotbar while open (e.g. lock to hotbar while open).
+// TODO: Fix bug causing player's current number of carried backpacks to update incorrectly ('maxBackpackAmount').
+// TODO: Fix bug causing backpack SHIFT info to not properly display slot usage.
+
 @Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.MOD_VERSION, certificateFingerprint = Constants.FINGERPRINT, guiFactory = Constants.CLASS_GUI_FACTORY)
 public class Backpack {
     @Instance(Constants.MOD_ID)
@@ -54,7 +59,7 @@ public class Backpack {
             // key bindings
             proxy.registerKeybindings();
 
-            FMLInterModComms.sendRuntimeMessage(Constants.MOD_ID, "VersionChecker", "addVersionCheck", Constants.UPDATE_FILE);
+            //FMLInterModComms.sendRuntimeMessage(Constants.MOD_ID, "VersionChecker", "addVersionCheck", Constants.UPDATE_FILE);
         }
     }
 
@@ -74,3 +79,4 @@ public class Backpack {
         proxy.addNeiSupport();
     }
 }
+

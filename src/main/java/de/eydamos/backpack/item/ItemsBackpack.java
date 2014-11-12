@@ -18,9 +18,9 @@ public class ItemsBackpack {
     
     public static final int ENDERBACKPACK = 31999;
     public static final String[] BACKPACK_TIERS = {
-        "",
+        "small",
         "medium",
-        "big"
+        "large"
     };
     public static final String[] BACKPACK_COLORS = {
         "",
@@ -55,3 +55,4 @@ public class ItemsBackpack {
         GameRegistry.registerItem(tannedLeather, "tannedLeather");
     }
 }
+

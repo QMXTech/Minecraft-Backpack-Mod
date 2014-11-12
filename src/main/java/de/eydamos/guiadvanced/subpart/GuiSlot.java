@@ -51,47 +51,48 @@ public class GuiSlot implements AbstractGuiPart {
     @Override
     public void draw(Minecraft mc, int mouseX, int mouseY, float something) {
         Rectangle rectangle = new Rectangle(1, 1);
+
         // draw upper left corner
         rectangle.setBackgroundPosition(201, 0);
         rectangle.draw(xPosition, yPosition);
         // draw upper right corner
         rectangle.setBackgroundPosition(218, 0);
-        rectangle.draw(xPosition + width - 1, yPosition);
+        rectangle.draw((xPosition + width - 1), yPosition);
         // draw lower left corner
         rectangle.setBackgroundPosition(201, 17);
         rectangle.draw(xPosition, yPosition + height - 1);
         // draw lower right corner
         rectangle.setBackgroundPosition(218, 17);
-        rectangle.draw(xPosition + width - 1, yPosition + height - 1);
+        rectangle.draw((xPosition + width - 1), (yPosition + height - 1));
 
         // borders top/bottom
-        rectangle.setWidth(width - 2);
+        rectangle.setWidth((width - 2));
         rectangle.setBackgroundRepeat(BackgroundRepeat.REPEAT_X);
         // draw top border
         rectangle.setBackgroundPosition(202, 0);
-        rectangle.draw(xPosition + 1, yPosition);
+        rectangle.draw((xPosition + 1), yPosition);
         // draw bottom border
         rectangle.setBackgroundPosition(202, 17);
-        rectangle.draw(xPosition + 1, yPosition + height - 1);
+        rectangle.draw((xPosition + 1), (yPosition + height - 1));
 
         // borders left/right
         rectangle.setWidth(1);
-        rectangle.setHeight(height - 2);
+        rectangle.setHeight((height - 2));
         rectangle.setBackgroundRepeat(BackgroundRepeat.REPEAT_Y);
         // draw left border
         rectangle.setBackgroundPosition(201, 1);
-        rectangle.draw(xPosition, yPosition + 1);
+        rectangle.draw(xPosition, (yPosition + 1));
         // draw right border
         rectangle.setBackgroundPosition(218, 1);
-        rectangle.draw(xPosition + width - 1, yPosition + 1);
+        rectangle.draw((xPosition + width - 1), (yPosition + 1));
 
         // draw background
-        rectangle.setWidth(width - 2);
-        rectangle.setHeight(height - 2);
-        rectangle.setBackgroundSize(14, 14);
-        rectangle.setBackgroundRepeat(BackgroundRepeat.REPEAT);
+        rectangle.setWidth((width - 2));
+        rectangle.setHeight((height - 2));
+        rectangle.setBackgroundSize(16, 16);
+        rectangle.setBackgroundRepeat(BackgroundRepeat.STRETCH);
         rectangle.setBackgroundPosition(202, 1);
-        rectangle.draw(xPosition + 1, yPosition + 1);
+        rectangle.draw((xPosition + 1), (yPosition + 1));
     }
 
     @Override
@@ -101,3 +102,4 @@ public class GuiSlot implements AbstractGuiPart {
     }
 
 }
+

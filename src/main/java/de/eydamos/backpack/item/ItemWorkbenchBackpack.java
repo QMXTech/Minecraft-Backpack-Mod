@@ -26,9 +26,10 @@ public class ItemWorkbenchBackpack extends ItemBackpackBase {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IIconRegister iconRegister) {
-        icons = new IIcon[2];
-        icons[0] = iconRegister.registerIcon("backpack:backpack_workbench");
-        icons[1] = iconRegister.registerIcon("backpack:backpack_workbench_big");
+        icons = new IIcon[3];
+        icons[0] = iconRegister.registerIcon("backpack:backpack_workbench_small");
+        icons[1] = iconRegister.registerIcon("backpack:backpack_workbench_medium");
+        icons[2] = iconRegister.registerIcon("backpack:backpack_workbench_large");
     }
 
     /**
@@ -41,13 +42,16 @@ public class ItemWorkbenchBackpack extends ItemBackpackBase {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage(int damage) {
-        if(damage == 17) {
-            return icons[0];
+        IIcon result = icons[0];
+
+        if(damage == 117) {
+            result = icons[1];
         }
         if(damage == 217) {
-            return icons[1];
+            result = icons[2];
         }
-        return icons[0];
+
+        return result;
     }
 
     @Override
@@ -60,3 +64,4 @@ public class ItemWorkbenchBackpack extends ItemBackpackBase {
         }
     }
 }
+

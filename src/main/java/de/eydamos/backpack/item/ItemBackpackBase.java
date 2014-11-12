@@ -55,6 +55,7 @@ public class ItemBackpackBase extends Item {
             subItems.add(new ItemStack(item, 1, ItemsBackpack.ENDERBACKPACK));
         } else if(item == ItemsBackpack.workbenchBackpack) {
             subItems.add(new ItemStack(item, 1, 17));
+            subItems.add(new ItemStack(item, 1, 117));
             subItems.add(new ItemStack(item, 1, 217));
         }
     }
@@ -87,63 +88,6 @@ public class ItemBackpackBase extends Item {
      */
     @Override
     public boolean onItemUse(ItemStack stack, EntityPlayer player, World worldObj, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-        /*
-        TileEntity te = worldObj.getTileEntity(x, y, z);
-        if(te != null && (te instanceof IInventory || te instanceof TileEntityEnderChest)) {
-            boolean openGui = false;
-            if(te instanceof TileEntityChest) {
-                openGui = true;
-            }
-            if(te instanceof TileEntityEnderChest && !BackpackUtil.isEnderBackpack(stack)) {
-                openGui = true;
-            }
-            if(te instanceof TileEntityFurnace) {
-                openGui = true;
-            }
-            if(te instanceof TileEntityHopper) {
-                openGui = true;
-            }
-            if(te instanceof TileEntityBrewingStand) {
-                openGui = true;
-            }
-            if(te instanceof TileEntityDispenser) {
-                openGui = true;
-            }
-            if(te instanceof TileEntityDropper) {
-                openGui = true;
-            }
-
-            if(te.getClass().getSimpleName().equals("TileEntityDirtChest")) {
-                openGui = true;
-            }
-            if(te.getClass().getSimpleName().equals("TileEntityCopperChest")) {
-                openGui = true;
-            }
-            if(te.getClass().getSimpleName().equals("TileEntityIronChest")) {
-                openGui = true;
-            }
-            if(te.getClass().getSimpleName().equals("TileEntitySilverChest")) {
-                openGui = true;
-            }
-            if(te.getClass().getSimpleName().equals("TileEntityGoldChest")) {
-                openGui = true;
-            }
-            if(te.getClass().getSimpleName().equals("TileEntityDiamondChest")) {
-                openGui = true;
-            }
-            if(te.getClass().getSimpleName().equals("TileEntityCrystalChest")) {
-                openGui = true;
-            }
-            if(te.getClass().getSimpleName().equals("TileEntityObsidianChest")) {
-                openGui = true;
-            }
-
-            if(openGui) {
-                //player.openGui(Backpack.instance, Constants.GUI_ID_COMBINED, worldObj, x, y, z);
-                return true;
-            }
-        }
-        */
         return false;
     }
 
@@ -173,7 +117,7 @@ public class ItemBackpackBase extends Item {
         }
 
         // when the player is not sneaking
-        if(!entityPlayer.isSneaking() && !ConfigurationBackpack.OPEN_ONLY_PERSONAL_BACKPACK) {
+        if(!entityPlayer.isSneaking() && !ConfigurationBackpack.OPEN_ONLY_WORN_BACKPACK) {
             GuiHelper.displayBackpack(new BackpackSave(itemStack), getInventory(itemStack, entityPlayer), (EntityPlayerMP) entityPlayer);
         }
         return itemStack;
@@ -189,15 +133,17 @@ public class ItemBackpackBase extends Item {
         String name = super.getUnlocalizedName();
 
         int damage = itemStack.getItemDamage();
-        int tier = damage / 100 < 3 ? damage / 100 : 0;
+        int tier = ( ( damage / 100 ) < 3 ) ? ( damage / 100 ) : 0;
         int meta = damage % 100;
-        name += (tier == 0 ? "" : '.') + ItemsBackpack.BACKPACK_TIERS[tier];
-        if(meta > 0 && meta < 17) { // add color
-            name += (tier == 0 ? '.' : '_') + ItemsBackpack.BACKPACK_COLORS[damage % 100];
+
+        if((meta >= 0) && (meta <= 17)) {
+            // standard or workbench backpack
+            name += '.' + ItemsBackpack.BACKPACK_TIERS[tier] + (((meta > 0) && (meta < 17)) ? ( '_' + ItemsBackpack.BACKPACK_COLORS[damage % 100] ) : "" );
+        } else if(meta == 99) {
+            // ender backpack
+            name += '.' + ItemsBackpack.BACKPACK_COLORS[17];
         }
-        if(meta == 99) { // ender backpack
-            name += (tier == 0 ? '.' : '_') + ItemsBackpack.BACKPACK_COLORS[17];
-        }
+
         return name;
     }
 
@@ -214,6 +160,7 @@ public class ItemBackpackBase extends Item {
         if(NBTItemStackUtil.hasTag(itemStack, Constants.NBT.CUSTOM_NAME)) {
             return NBTItemStackUtil.getString(itemStack, Constants.NBT.CUSTOM_NAME);
         }
+
         return StatCollector.translateToLocal(getUnlocalizedName(itemStack) + ".name");
     }
 
@@ -262,3 +209,4 @@ public class ItemBackpackBase extends Item {
         return inventory;
     }
 }
+

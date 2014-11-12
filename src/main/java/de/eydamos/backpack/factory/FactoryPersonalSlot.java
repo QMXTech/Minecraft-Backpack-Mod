@@ -16,6 +16,7 @@ import de.eydamos.backpack.inventory.container.ContainerAdvanced;
 import de.eydamos.backpack.inventory.container.ContainerPersonalSlot;
 import de.eydamos.backpack.inventory.slot.SlotBackpackOnly;
 import de.eydamos.backpack.inventory.slot.SlotPhantom;
+import de.eydamos.backpack.misc.ConfigurationBackpack;
 import de.eydamos.backpack.misc.Localizations;
 import de.eydamos.backpack.saves.PlayerSave;
 import de.eydamos.backpack.util.BackpackUtil;
@@ -108,10 +109,11 @@ public class FactoryPersonalSlot extends AbstractFactory<PlayerSave> {
             guiBackpack.addSubPart(guiSlot);
         }
 
-        guiBackpack.addSubPart(new Label(X_SPACING, 6, 0x404040, container.getInventoryToSave().getInventoryName()));
-        guiBackpack.addSubPart(new Label(X_SPACING, 38, 0x404040, container.getInventoryPickup().getInventoryName()));
+        guiBackpack.addSubPart(new Label(X_SPACING, 6, ConfigurationBackpack.GUITextColor, container.getInventoryToSave().getInventoryName()));
+        guiBackpack.addSubPart(new Label(X_SPACING, 38, ConfigurationBackpack.GUITextColor, container.getInventoryPickup().getInventoryName()));
 
         return guiBackpack;
     }
 
 }
+

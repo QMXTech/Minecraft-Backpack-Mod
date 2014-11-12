@@ -29,3 +29,4 @@ public class Localizations {
     public static final String BUTTON_OK = "button.backpack.ok";
     public static final String BUTTON_CANCEL = "button.backpack.cancel";
 }
+

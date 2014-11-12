@@ -12,6 +12,7 @@ import de.eydamos.backpack.inventory.AbstractInventoryBackpack;
 import de.eydamos.backpack.inventory.container.Boundaries;
 import de.eydamos.backpack.inventory.container.ContainerAdvanced;
 import de.eydamos.backpack.inventory.slot.SlotBackpack;
+import de.eydamos.backpack.misc.ConfigurationBackpack;
 import de.eydamos.backpack.saves.BackpackSave;
 import de.eydamos.guiadvanced.form.Label;
 import de.eydamos.guiadvanced.subpart.GuiSlot;
@@ -109,10 +110,11 @@ public class FactoryBackpackNormal extends AbstractFactory<BackpackSave> {
             guiBackpack.addSubPart(guiSlot);
         }
 
-        guiBackpack.addSubPart(new Label(X_SPACING, 6, 0x404040, inventories[1].getInventoryName()));
-        guiBackpack.addSubPart(new Label(X_SPACING, textPositionY, 0x404040, "container.inventory"));
+        guiBackpack.addSubPart(new Label(X_SPACING, 6, ConfigurationBackpack.GUITextColor, inventories[1].getInventoryName()));
+        guiBackpack.addSubPart(new Label(X_SPACING, textPositionY, ConfigurationBackpack.GUITextColor, "container.inventory"));
 
         return guiBackpack;
     }
 
 }
+

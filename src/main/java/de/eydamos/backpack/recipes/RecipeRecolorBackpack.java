@@ -28,14 +28,14 @@ public class RecipeRecolorBackpack implements IRecipe {
         result = null;
         ItemStack backpack = null;
         ItemStack dye = null;
-
         ItemStack slotStack;
+
         for(int i = 0; i < craftingGridInventory.getSizeInventory(); i++) {
             slotStack = craftingGridInventory.getStackInSlot(i);
 
             if(slotStack != null) {
                 if(slotStack.getItem() instanceof ItemBackpack) {
-                    if(BackpackUtil.isEnderBackpack(slotStack) || backpack != null) {
+                    if(BackpackUtil.isEnderBackpack(slotStack) || (backpack != null)) {
                         return false;
                     }
                     backpack = slotStack;
@@ -50,15 +50,16 @@ public class RecipeRecolorBackpack implements IRecipe {
             }
         }
 
-        if(backpack != null && dye != null) {
+        if((backpack != null) && (dye != null)) {
             int tier = backpack.getItemDamage() / 100;
-            if(tier != 0 && dye.getItem() == Items.leather) {
+
+            if((tier != 0) && (tier != 1) && (dye.getItem() == Items.leather)) {
                 return false;
-            } else if(tier != 2 && dye.getItem() == ItemsBackpack.tannedLeather) {
+            } else if((tier != 2) && (dye.getItem() == ItemsBackpack.tannedLeather)) {
                 return false;
             }
 
-            int damage = (dye.getItem() instanceof ItemDye ? dye.getItemDamage() + 1 : 0) + tier * 100;
+            int damage = ((dye.getItem() instanceof ItemDye) ? (dye.getItemDamage() + 1) : 0) + (tier * 100);
 
             result = backpack.copy();
             result.setItemDamage(damage);
@@ -82,3 +83,4 @@ public class RecipeRecolorBackpack implements IRecipe {
         return result;
     }
 }
+

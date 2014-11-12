@@ -5,16 +5,15 @@ import net.minecraft.util.ResourceLocation;
 import de.eydamos.backpack.model.ModelBackpack;
 
 public class Constants {
-    public static final String MOD_ID = "Backpack";
-    public static final String MOD_NAME = "Backpack";
-    public static final String MOD_VERSION = "2.0.1";
+    public static final String MOD_ID = "QMXBackpacks";
+    public static final String MOD_NAME = "QMXBackpacks";
+    public static final String MOD_VERSION = "1.0.0";
     public static final String FINGERPRINT = "@FINGERPRINT@";
 
     public static final String DOMAIN = "backpack";
 
-    public static final String RECIPE_ENHANCE = DOMAIN + ":enhanceBackpack";
-    public static final String RECIPE_INTELLIGENT = DOMAIN + ":intelligentWorkbench";
     public static final String RECIPE_RECOLOR = DOMAIN + ":recolorBackpack";
+    public static final String RECIPE_INTELLIGENT = DOMAIN + ":intelligentWorkbench";
 
     public static final String CLASS_PROXY_CLIENT = "de.eydamos.backpack.proxy.ClientProxy";
     public static final String CLASS_PROXY_SERVER = "de.eydamos.backpack.proxy.ServerProxy";
@@ -60,3 +59,4 @@ public class Constants {
 
     public class NBTTypes extends net.minecraftforge.common.util.Constants.NBT {}
 }
+
